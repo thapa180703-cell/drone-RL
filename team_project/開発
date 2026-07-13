@@ -1,0 +1,29 @@
+import gymnasium as gym
+import time
+
+# Create the Mountain Car environment
+env = gym.make("MountainCar-v0", render_mode="human")
+
+# Reset the environment to start
+state, info = env.reset()
+
+print("Environment initialized! Running 100 steps...")
+
+# Run for 100 steps taking random actions
+for _ in range(100):
+    # Pick a random action (0 = push left, 1 = do nothing, 2 = push right)
+    action = env.action_space.sample()
+
+    # Take the action in the environment
+    state, reward, terminated, truncated, info = env.step(action)
+
+    # Pause slightly so you can see the window animation
+    time.sleep(0.02)
+
+    # If the car finishes or fails, reset it
+    if terminated or truncated:
+        state, info = env.reset()
+
+# Clean up and close the window
+env.close()
+print("Test complete!")
